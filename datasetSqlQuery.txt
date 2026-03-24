@@ -1,0 +1,15 @@
+CREATE EXTERNAL TABLE house_prices (
+    price INT,
+    area INT,
+    bedrooms INT,
+    bathrooms INT,
+    stories INT,
+    mainroad STRING,
+    guestroom STRING,
+    basement STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION 's3://datasetforsql123/'
+TBLPROPERTIES ("skip.header.line.count"="1");
