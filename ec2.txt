@@ -1,0 +1,10 @@
+sudo apt update
+sudo apt install nodejs
+sudo apt git 
+sudo apt install npm
+git clone https://github.com/arjunsrajput/notes-app
+ls
+cd notes_app
+node app.js
+npm i express
+sudo notes_app
