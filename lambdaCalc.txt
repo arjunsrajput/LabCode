@@ -57,3 +57,59 @@ test
   "num2": 5,
   "operation": "divide"
 }
+
+
+
+
+azure function 
+module.exports = async function (context, req) {
+    try {
+        const num1 = parseFloat(req.query.num1 || req.body?.num1);
+        const num2 = parseFloat(req.query.num2 || req.body?.num2);
+        const operation = req.query.operation || req.body?.operation;
+
+        if (num1 === undefined || num2 === undefined || !operation) {
+            context.res = {
+                status: 400,
+                body: "Provide num1, num2, and operation"
+            };
+            return;
+        }
+
+        let result;
+
+        switch (operation) {
+            case "add":
+                result = num1 + num2;
+                break;
+            case "subtract":
+                result = num1 - num2;
+                break;
+            case "multiply":
+                result = num1 * num2;
+                break;
+            case "divide":
+                if (num2 === 0) throw new Error("Division by zero");
+                result = num1 / num2;
+                break;
+            default:
+                throw new Error("Invalid operation");
+        }
+
+        context.res = {
+            status: 200,
+            body: {
+                num1,
+                num2,
+                operation,
+                result
+            }
+        };
+
+    } catch (error) {
+        context.res = {
+            status: 500,
+            body: error.message
+        };
+    }
+};
